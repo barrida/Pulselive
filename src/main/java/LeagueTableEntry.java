@@ -90,16 +90,36 @@ public class LeagueTableEntry {
         return points;
     }
 
-    public void updatePoints(int points) {
+    public synchronized void updatePoints(int points) {
         this.points += points;
     }
 
-    public void updateLost() {
+    public synchronized void updateLost() {
         this.lost++;
     }
 
-    public void updateWon() {
+    public synchronized void updateWon() {
         this.won++;
+    }
+
+    public synchronized void updateDrawn() {
+        this.drawn++;
+    }
+
+    public synchronized void updatePlayed() {
+        this.played++;
+    }
+
+    public synchronized void updateGoalsFor(int goalsFor) {
+        this.goalsFor += goalsFor;
+    }
+
+    public synchronized void updateGoalsAgainst(int goalsAgainst) {
+        this.goalsAgainst += goalsAgainst;
+    }
+
+    public synchronized void updateGoalDifference() {
+        this.goalDifference = this.getGoalsFor() - this.getGoalsAgainst();
     }
 
     @Override
@@ -113,25 +133,5 @@ public class LeagueTableEntry {
     @Override
     public int hashCode() {
         return Objects.hash(teamName, played, won, drawn, lost, goalsFor, goalsAgainst, goalDifference, points);
-    }
-
-
-    public void updateDrawn() {
-        this.drawn++;
-    }
-
-    public void updatePlayed() {
-        this.played++;
-    }
-
-    public void updateGoalsFor(int goalsFor){
-        this.goalsFor += goalsFor;
-    }
-    public void updateGoalsAgainst(int goalsAgainst){
-        this.goalsAgainst += goalsAgainst;
-    }
-
-    public void updateGoalDifference(){
-        this.goalDifference = this.goalsFor - this.goalsAgainst;
     }
 }
